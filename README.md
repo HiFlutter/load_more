@@ -12,7 +12,9 @@ and the Flutter guide for
 -->
 
 ## screenshot
+
 <img width="270" height="480" src="https://github.com/HiFlutter/load_more/blob/master/iamges/device-2022-01-20-143856.gif"/>
+
 ## Getting started
 
 TODO: List prerequisites and provide or point to information on how to
