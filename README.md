@@ -11,12 +11,10 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## screenshot
 
-## Features
+![img](https://github.com/HiFlutter/load_more/blob/master/iamges/device-2022-01-20-143856.gif)
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started
 
@@ -25,11 +23,24 @@ start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
 ```dart
-const like = 'sample';
+  LoadMoreView(
+    onLoadMore: () => load(), 
+    isEmpty: false,
+    isError: false,
+    duration: 500,
+    slivers: [
+    SliverList(
+    delegate:
+    SliverChildBuilderDelegate((BuildContext context, int index) {
+      return Container(
+        child: Text(list[index].toString()),
+        height: 40.0,
+        alignment: Alignment.center,
+      );
+  }, childCount: list.length)),
+  ],
+  ),
 ```
 
 ## Additional information
