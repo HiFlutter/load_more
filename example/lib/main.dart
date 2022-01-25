@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onLoadMore: () => load(),
         isEmpty: false,
         isError: false,
+        disableLoadMoreIfNotFullPage: true,
         duration: 500,
         slivers: [
           SliverList(

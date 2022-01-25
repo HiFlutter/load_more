@@ -10,21 +10,25 @@ class BottomView extends StatelessWidget {
   final Widget? loadView;
   final Widget? emptyView;
   final Widget? errorView;
+  final Widget? completeView;
   final String? loadingText;
   final String? errorText;
   final String? emptyText;
+  final String? completeText;
   final double height;
 
   BottomView(
       {Key? key,
       required this.status,
+      required this.height,
       this.loadView,
       this.emptyView,
       this.errorView,
       this.loadingText,
       this.errorText,
       this.emptyText,
-      required this.height})
+      this.completeView,
+      this.completeText})
       : super(key: key);
   late final BottomViewNotification _notification = BottomViewNotification();
 
@@ -43,12 +47,20 @@ class BottomView extends StatelessWidget {
                   ? emptyView ?? Text(emptyText ?? '人家也是有底线的~~')
                   : (status == LoadMoreStatus.fail
                       ? GestureDetector(
-                          child: errorView ?? Text(errorText ?? '加载失败，请点击重试'),
+                          child: errorView ?? Text(errorText ?? '加载失败，点击重试'),
                           onTap: () {
                             _notification.dispatch(context);
                           },
                         )
-                      : _buildLoadMoreView(context))),
+                      : (status == LoadMoreStatus.complete
+                          ? GestureDetector(
+                              child:
+                                  errorView ?? Text(errorText ?? '加载成功，点击加载更多'),
+                              onTap: () {
+                                _notification.dispatch(context);
+                              },
+                            )
+                          : _buildLoadMoreView(context)))),
             ),
             height: height,
           );
@@ -68,7 +80,9 @@ class BottomView extends StatelessWidget {
                   strokeWidth: 2,
                 ),
               ),
-              const SizedBox(width: 10,),
+              const SizedBox(
+                width: 10,
+              ),
               Text(loadingText ?? '加载中...')
             ],
           ),

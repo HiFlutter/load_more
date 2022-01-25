@@ -33,6 +33,9 @@ class LoadMoreView extends StatefulWidget {
   ///加载完成空数据组件
   final Widget? emptyView;
 
+  ///
+  final Widget? completeView;
+
   ///加载完成错误组件
   final Widget? errorView;
 
@@ -41,6 +44,9 @@ class LoadMoreView extends StatefulWidget {
 
   ///加载错误时 错误提示
   final String? errorText;
+
+  ///
+  final String? completeText;
 
   ///加载没有数据时 空提示
   final String? emptyText;
@@ -69,6 +75,8 @@ class LoadMoreView extends StatefulWidget {
       required this.isEmpty,
       required this.isError,
       required this.slivers,
+      this.completeView,
+      this.completeText,
       this.loadView,
       this.emptyView,
       this.errorView,
@@ -139,6 +147,8 @@ class _LoadMoreViewState extends State<LoadMoreView> {
           loadView: widget.loadView,
           emptyText: widget.emptyText,
           emptyView: widget.emptyView,
+          completeView: widget.completeView,
+          completeText: widget.completeText,
         ),
         onNotification: (_) => _onBottomNotification(_, context),
       ));
