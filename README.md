@@ -17,8 +17,16 @@ and the Flutter guide for
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
+```dart
+    dependencies:
+      flutter_loadmore_any: ^0.0.1
+```
+Import it
+Now in your Dart code, you can use:
+```dart
+    import 'package:flutter_loadmore_any/flutter_loadmore_any.dart';
+```
 
 ## Usage
 
@@ -41,9 +49,10 @@ start using the package.
   ],
   ),
 ```
+在slivers中添加普通widget时可以使用SliverToBoxAdapter转换一下
+```dart
+    SliverToBoxAdapter(
+      child: Text('Test'))
+```
 
-## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.

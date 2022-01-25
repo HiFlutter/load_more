@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:load_more/load_more.dart';
+import 'package:flutter_loadmore_any/flutter_loadmore_any.dart';
 
 void main() {
   runApp(const MyApp());

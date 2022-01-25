@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:load_more/load_more.dart';
-import 'package:load_more/src/load_more_view/load_more_view.dart';
+import 'package:flutter_loadmore_any/flutter_loadmore_any.dart';
 
 void main() {
   test("test widget", () {
