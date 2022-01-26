@@ -33,7 +33,7 @@ class LoadMoreView extends StatefulWidget {
   ///加载完成空数据组件
   final Widget? emptyView;
 
-  ///
+  ///完成加载widget
   final Widget? completeView;
 
   ///加载完成错误组件
@@ -45,7 +45,7 @@ class LoadMoreView extends StatefulWidget {
   ///加载错误时 错误提示
   final String? errorText;
 
-  ///
+  ///完成加载文字
   final String? completeText;
 
   ///加载没有数据时 空提示
@@ -62,6 +62,9 @@ class LoadMoreView extends StatefulWidget {
 
   ///底部加载组件高度 默认30
   final double? height;
+
+  ///偏移量 滚动到距离底部还有[scrollOffset]触发上拉加载 默认100
+  final double? scrollOffset;
 
   ///不满一屏是否开启上拉加载
   final bool? disableLoadMoreIfNotFullPage;
@@ -85,7 +88,8 @@ class LoadMoreView extends StatefulWidget {
       this.errorText,
       this.emptyText,
       this.disableLoadMoreIfNotFullPage = false,
-      this.duration = 0})
+      this.duration = 0,
+      this.scrollOffset = 100})
       : super(key: key);
 
   @override
@@ -174,14 +178,41 @@ class _LoadMoreViewState extends State<LoadMoreView> {
   }
 
   bool _onNotification(ScrollNotification notification, BuildContext context) {
-    if (notification is ScrollUpdateNotification) {
+    //当前滚动距离
+    double currentExtent = notification.metrics.pixels;
+    //最大滚动距离
+    double maxExtent = notification.metrics.maxScrollExtent;
+
+    //开始滚动
+    if (notification is ScrollStartNotification) {
       if ((_status == LoadMoreStatus.idle)) {
         _updateStatus(LoadMoreStatus.complete);
       }
-      if (notification.metrics.maxScrollExtent == notification.metrics.pixels) {
+    }
+
+    //滚动更新过程中，并且设置非滚动到底部可以触发加载更多
+    if ((notification is ScrollUpdateNotification)) {
+      if ((_status == LoadMoreStatus.idle)) {
+        _updateStatus(LoadMoreStatus.complete);
+      }
+
+      if (maxExtent - currentExtent <= max<double>(100, widget.scrollOffset!)) {
         if (_status == LoadMoreStatus.idle ||
             _status == LoadMoreStatus.complete) {
           loadMore();
+          return true;
+        }
+      }
+    }
+
+    //滚动到底部，并且设置滚动到底部才触发加载更多
+    if ((notification is ScrollEndNotification)) {
+      //滚动到底部并且加载状态为正常时，调用加载更多
+      if (currentExtent >= maxExtent) {
+        if (_status == LoadMoreStatus.idle ||
+            _status == LoadMoreStatus.complete) {
+          loadMore();
+          return true;
         }
       }
     }

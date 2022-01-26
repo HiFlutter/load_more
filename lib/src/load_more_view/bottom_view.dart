@@ -40,7 +40,7 @@ class BottomView extends StatelessWidget {
       }
     });
     return status == LoadMoreStatus.idle
-        ? const SizedBox()
+        ? SizedBox(height: height,)
         : SizedBox(
             child: Center(
               child: (status == LoadMoreStatus.empty

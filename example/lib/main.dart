@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         isEmpty: false,
         isError: false,
         disableLoadMoreIfNotFullPage: true,
-        duration: 500,
+        duration: 1000,
         slivers: [
           SliverList(
               delegate:
